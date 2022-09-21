@@ -6,7 +6,7 @@
     CompatiblePSEditions = @('Desktop', 'Core')
     Copyright            = '(c) 2011 - 2022 Przemyslaw Klys @ Evotec. All rights reserved.'
     Description          = 'PowerShell module to get current stock in Ubiquiti Unifi store'
-    FunctionsToExport    = 'Get-UnifiStock'
+    FunctionsToExport    = @('Get-UnifiStock', 'Wait-UnifiStock')
     GUID                 = 'e3d09753-16be-4535-b74f-d9a4c6927a54'
     ModuleVersion        = '0.0.1'
     PowerShellVersion    = '5.1'
