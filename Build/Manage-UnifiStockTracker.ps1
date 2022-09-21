@@ -7,7 +7,7 @@ $Configuration = @{
 
         Manifest          = @{
             # Version number of this module.
-            ModuleVersion              = '0.0.1'
+            ModuleVersion              = '1.0.0'
             # Supported PSEditions
             CompatiblePSEditions       = @('Desktop', 'Core')
             # ID used to uniquely identify this module
@@ -25,7 +25,7 @@ $Configuration = @{
             # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
             Tags                       = @('Windows', 'macOS', "Linux", 'Ubiquiti', 'Unifi', 'Stock', 'Tracker')
 
-            #IconUri                    = ''
+            IconUri                    = 'https://help.ui.com/hc/article_attachments/360010605813/ubiquiti_logo.png'
 
             ProjectUri                 = 'https://github.com/EvotecIT/UnifiStockTracker'
 
