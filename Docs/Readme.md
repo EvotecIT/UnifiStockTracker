@@ -14,3 +14,6 @@ Locale: en-US
 ### [Get-UnifiStock](Get-UnifiStock.md)
 {{ Fill in the Synopsis }}
 
+### [Wait-UnifiStock](Wait-UnifiStock.md)
+{{ Fill in the Synopsis }}
+
