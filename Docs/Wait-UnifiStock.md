@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-UnifiStock
+# Wait-UnifiStock
 
 ## SYNOPSIS
 {{ Fill in the Synopsis }}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Get-UnifiStock [-Store] <String> [[-Collection] <String[]>] [<CommonParameters>]
+Wait-UnifiStock [[-ProductName] <String[]>] [[-Seconds] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,33 +30,31 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -Collection
-{{ Fill Collection Description }}
+### -ProductName
+{{ Fill ProductName Description }}
 
 ```yaml
 Type: String[]
 Parameter Sets: (All)
 Aliases:
-Accepted values: Protect, ProtectNVR, ProtectAccessories, NetworkOS, NetworkSwitching, NetworkSmartPower, NetworkRoutingOffload, NetworkWifi
 
 Required: False
-Position: 1
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Store
-{{ Fill Store Description }}
+### -Seconds
+{{ Fill Seconds Description }}
 
 ```yaml
-Type: String
+Type: Int32
 Parameter Sets: (All)
 Aliases:
-Accepted values: Europe, USA, Brazil
 
-Required: True
-Position: 0
+Required: False
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
