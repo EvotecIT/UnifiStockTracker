@@ -13,7 +13,8 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Wait-UnifiStock [[-ProductName] <String[]>] [[-Seconds] <Int32>] [<CommonParameters>]
+Wait-UnifiStock [[-ProductName] <String[]>] [[-ProductSKU] <String[]>] [[-Store] <String>] [[-Seconds] <Int32>]
+ [-DoNotOpenWebsite] [-DoNotPlaySound] [-DoNotUseBeep] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,6 +31,51 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
+### -DoNotOpenWebsite
+{{ Fill DoNotOpenWebsite Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DoNotPlaySound
+{{ Fill DoNotPlaySound Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DoNotUseBeep
+{{ Fill DoNotUseBeep Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -ProductName
 {{ Fill ProductName Description }}
 
@@ -45,6 +91,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ProductSKU
+{{ Fill ProductSKU Description }}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Seconds
 {{ Fill Seconds Description }}
 
@@ -54,7 +115,23 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Store
+{{ Fill Store Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: Europe, USA, Brazil
+
+Required: False
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
