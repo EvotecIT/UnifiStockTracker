@@ -27,18 +27,28 @@
 
     $UrlStore = $Stores[$Store]
 
+    if (-not $Collection) {
+        $Collection = $Collections.Keys
+    }
+
     foreach ($Category in $Collection) {
         $UrlCollection = $Collections[$Category]
         $Url = "$UrlStore/collections/$UrlCollection"
         $UrlProducts = "$Url/products.json"
         $ProgressPreference = 'SilentlyContinue'
-        $Output = Invoke-WebRequest -Uri $UrlProducts
+        try {
+            $Output = Invoke-WebRequest -Uri $UrlProducts -ErrorAction Stop
+        } catch {
+            Write-Color -Text "Unable to get $UrlProducts. Error: $($_.Exception.Message)" -Color Red
+            return
+        }
         $OutputJSON = $Output.Content | ConvertFrom-Json
         $UnifiProducts = foreach ($Product in $OutputJSON.products) {
             foreach ($Variant in $Product.variants) {
                 [PSCustomObject] @{
                     Name       = $Product.title
                     Available  = $Variant.available
+                    Category   = $Category
                     Price      = $Variant.price
                     SKU        = $Variant.sku
                     SKUName    = $Variant.title
