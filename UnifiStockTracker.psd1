@@ -8,12 +8,13 @@
     Description          = 'PowerShell module to get current stock in Ubiquiti Unifi store'
     FunctionsToExport    = @('Get-UnifiStock', 'Wait-UnifiStock')
     GUID                 = 'e3d09753-16be-4535-b74f-d9a4c6927a54'
-    ModuleVersion        = '0.0.1'
+    ModuleVersion        = '1.0.0'
     PowerShellVersion    = '5.1'
     PrivateData          = @{
         PSData = @{
             Tags       = @('Windows', 'macOS', 'Linux', 'Ubiquiti', 'Unifi', 'Stock', 'Tracker')
             ProjectUri = 'https://github.com/EvotecIT/UnifiStockTracker'
+            IconUri    = 'https://help.ui.com/hc/article_attachments/360010605813/ubiquiti_logo.png'
         }
     }
     RequiredModules      = @(@{
