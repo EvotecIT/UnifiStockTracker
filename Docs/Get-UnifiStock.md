@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UnifiStock
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Get the stock status of Ubiquiti products from their online store.
 
 ## SYNTAX
 
@@ -17,46 +17,54 @@ Get-UnifiStock [-Store] <String> [[-Collection] <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Get the stock status of Ubiquiti products from their online store.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+Get-UnifiStock -Store USA -Collection Protect, ProtectAccessories, ProtectNVR | Sort-Object -Property Name | Format-Table
 ```
 
-{{ Add example description here }}
+### EXAMPLE 2
+```
+Get-UnifiStock -Store Europe -Collection Protect, NetworkWifi | Sort-Object -Property Name | Format-Table
+```
+
+### EXAMPLE 3
+```
+Get-UnifiStock -Store Europe | Sort-Object -Property Name | Format-Table
+```
 
 ## PARAMETERS
 
-### -Collection
-{{ Fill Collection Description }}
+### -Store
+The store to check for stock.
+Valid values are: Europe, USA, Brazil, India, Japan, Taiwan, Signapore, Mexico, China
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: Protect, ProtectNVR, ProtectAccessories, NetworkOS, NetworkSwitching, NetworkSmartPower, NetworkRoutingOffload, NetworkWifi
 
-Required: False
+Required: True
 Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Store
-{{ Fill Store Description }}
+### -Collection
+Which collection to list.
+Valid values are: 'Protect', 'ProtectNVR', 'ProtectAccessories', 'NetworkOS', 'NetworkSwitching', 'NetworkSmartPower', 'NetworkRoutingOffload', 'NetworkWifi'
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
-Accepted values: Europe, USA, Brazil
 
-Required: True
-Position: 0
+Required: False
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -67,11 +75,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
+General notes
 
 ## RELATED LINKS

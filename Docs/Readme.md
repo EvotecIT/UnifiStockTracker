@@ -12,8 +12,8 @@ Locale: en-US
 
 ## UnifiStockTracker Cmdlets
 ### [Get-UnifiStock](Get-UnifiStock.md)
-{{ Fill in the Synopsis }}
+Get the stock status of Ubiquiti products from their online store.
 
 ### [Wait-UnifiStock](Wait-UnifiStock.md)
-{{ Fill in the Synopsis }}
+When run waits for the specified SKU or Product to be in stock in Ubiquiti's online store.
 
