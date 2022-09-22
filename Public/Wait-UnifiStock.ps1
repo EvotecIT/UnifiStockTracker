@@ -1,9 +1,50 @@
 ﻿function Wait-UnifiStock {
+    <#
+    .SYNOPSIS
+    When run waits for the specified SKU or Product to be in stock in Ubiquiti's online store.
+
+    .DESCRIPTION
+    When run waits for the specified SKU or Product to be in stock in Ubiquiti's online store.
+    Once the product is in stock the function will play a beep, read which product is in stock and open a browser to specific product page.
+
+    .PARAMETER ProductName
+    One or more products to wait for to be in stock with search by it's Name
+
+    .PARAMETER ProductSKU
+    One or more products to wait for to be in stock with search by it's SKU
+
+    .PARAMETER Store
+    The store to check for stock. Valid values are Europe, USA, Brazil, India, Japan, Taiwan, Signapore, Mexico, China
+
+    .PARAMETER Seconds
+    The number of seconds to wait between checks. Default is 60 seconds.
+
+    .PARAMETER DoNotOpenWebsite
+    If specified the website will not be opened when the product is in stock.
+
+    .PARAMETER DoNotPlaySound
+    If specified the sound will not be played when the product is in stock.
+
+    .PARAMETER DoNotUseBeep
+    If specified the beep will not be played when the product is in stock.
+
+    .EXAMPLE
+    Wait-UnifiStock -ProductSKU 'UDR-EU' -ProductName 'Switch Flex XG' -Seconds 60
+
+    .EXAMPLE
+    Wait-UnifiStock -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60
+
+    .EXAMPLE
+    Wait-UnifiStock -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60 -DoNotUseBeep
+
+    .NOTES
+    General notes
+    #>
     [cmdletBinding()]
     param(
         [string[]] $ProductName,
         [string[]] $ProductSKU,
-        [ValidateSet('Europe', 'USA', 'Brazil')][string] $Store = 'Europe',
+        [ValidateSet('Europe', 'USA', 'Brazil', 'India', 'Japan', 'Taiwan', 'Signapore', 'Mexico', 'China')][string] $Store = 'Europe',
         [int] $Seconds = 60,
         [switch] $DoNotOpenWebsite,
         [switch] $DoNotPlaySound,
@@ -65,13 +106,18 @@
         }
 
         if (-not $DoNotPlaySound) {
-            $voice = New-Object -ComObject Sapi.spvoice
+            try {
+                $Voice = New-Object -ComObject Sapi.spvoice
+            } catch {
+                Write-Color -Text "Failed to create voice object. Error: $($_.Exception.Message)" -Color Red
+            }
+            if ($Voice) {
+                # Set the speed - positive numbers are faster, negative numbers, slower
+                $voice.rate = 0
 
-            # Set the speed - positive numbers are faster, negative numbers, slower
-            $voice.rate = 0
-
-            # Say something
-            $null = $voice.speak("Hey,there is stock available for $($Product.Name)")
+                # Say something
+                $null = $voice.speak("Hey,there is stock available for $($Product.Name)")
+            }
         }
         if (-not $DoNotUseBeep) {
             [console]::beep(500, 300)
