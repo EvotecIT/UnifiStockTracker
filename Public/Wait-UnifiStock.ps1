@@ -59,9 +59,14 @@
 
     [Array] $ApplicableProducts = @(
         foreach ($Name in $ProductName) {
-            if ($Name -in $CurrentStock.Name) {
-                $Name
-            } else {
+            $Found = $false
+            foreach ($StockName in $CurrentStock.Name) {
+                if ($StockName -like "$Name") {
+                    $StockName
+                    $found = $true
+                }
+            }
+            if (-not $Found) {
                 Write-Color -Text "Product Name '$Name' not found in stock. Ignoring" -Color Red
             }
         }
