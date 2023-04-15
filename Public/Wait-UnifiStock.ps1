@@ -112,7 +112,7 @@
 
         if (-not $DoNotPlaySound) {
             try {
-                $Voice = New-Object -ComObject Sapi.spvoice
+                $Voice = New-Object -ComObject Sapi.spvoice -ErrorAction Stop
             } catch {
                 Write-Color -Text "Failed to create voice object. Error: $($_.Exception.Message)" -Color Red
             }
@@ -121,7 +121,11 @@
                 $voice.rate = 0
 
                 # Say something
-                $null = $voice.speak("Hey,there is stock available for $($Product.Name)")
+                try {
+                    $null = $voice.speak("Hey,there is stock available for $($Product.Name)")
+                } catch {
+                    Write-Color -Text "Failed to speak. Error: $($_.Exception.Message)" -Color Red
+                }
             }
         }
         if (-not $DoNotUseBeep) {
