@@ -19,10 +19,6 @@
         }
     }
     RequiredModules      = @(@{
-            ModuleName    = 'PSSharedGoods'
-            ModuleVersion = '0.0.260'
-            Guid          = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe'
-        }, @{
             ModuleName    = 'PSWriteColor'
             ModuleVersion = '0.87.3'
             Guid          = '0b0ba5c5-ec85-4c2b-a718-874e55a8bc3f'
