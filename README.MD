@@ -33,7 +33,7 @@ But there is one problem - they monitor for every single product so you get a lo
 This module is available to install from PowerShellGallery which is enabled by default on Windows.
 
 ```powershell
-Install-Module -Name UnifiStockTracker
+Install-Module -Name UnifiStockTracker -Scope CurrentUser -Verbose
 ```
 
 ## Usage
