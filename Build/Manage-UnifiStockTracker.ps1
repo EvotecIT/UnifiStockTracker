@@ -30,11 +30,12 @@ $Configuration = @{
             ProjectUri                 = 'https://github.com/EvotecIT/UnifiStockTracker'
 
             RequiredModules            = @(
-                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "Latest"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
+                #@{ ModuleName = 'PSSharedGoods'; ModuleVersion = "Latest"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
+                @{ ModuleName = 'PSWriteColor'; ModuleVersion = 'Latest'; Guid = 'Auto' }
             )
             ExternalModuleDependencies = @(
-                #"Microsoft.PowerShell.Management"
-                #"Microsoft.PowerShell.Security"
+                "Microsoft.PowerShell.Management"
+                "Microsoft.PowerShell.Utility"
             )
         }
     }
