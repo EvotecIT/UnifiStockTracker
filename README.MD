@@ -28,6 +28,9 @@ I know there are places doing the same thing such as:
 
 But there is one problem - they monitor for every single product so you get a lot of spam. I wanted to monitor only for specific products, in my own time. So I created this module.
 
+You can find more about this module on my blog:
+- Track Ubiquiti Unifi Stock, and get notified of changes(https://evotec.xyz/simplify-notifications-about-ubiquiti-unifi-stock/)
+
 ## Installation
 
 This module is available to install from PowerShellGallery which is enabled by default on Windows.
