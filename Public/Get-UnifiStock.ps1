@@ -68,7 +68,7 @@
         $UrlProducts = "$Url/products.json"
         $ProgressPreference = 'SilentlyContinue'
         try {
-            $Output = Invoke-WebRequest -Uri $UrlProducts -ErrorAction Stop
+            $Output = Invoke-WebRequest -Uri $UrlProducts -ErrorAction Stop -Verbose:$false
         } catch {
             Write-Color -Text "Unable to get $UrlProducts. Error: $($_.Exception.Message)" -Color Red
             return
@@ -77,6 +77,20 @@
             $OutputJSON = $Output.Content | ConvertFrom-Json
             $UnifiProducts = foreach ($Product in $OutputJSON.products) {
                 foreach ($Variant in $Product.variants) {
+                    try {
+                        $DateCreated = [DateTime]::Parse($Variant.created_at)
+                        #$DateCreated = [DateTime]::ParseExact($Variant.created_at, 'yyyy-MM-ddTHH:mm:sszzz', $null)
+                    } catch {
+                        Write-Verbose -Message "Unable to parse date: $($Variant.created_at). Skipping"
+                        $DateCreated = $null
+                    }
+                    try {
+                        $DateUpdated = [DateTime]::Parse($Variant.updated_at)
+                        #$DateUpdated = [DateTime]::ParseExact($Variant.updated_at, 'yyyy-MM-ddTHH:mm:sszzz', $null)
+                    } catch {
+                        Write-Verbose -Message "Unable to parse date: $($Variant.updated_at). Skipping"
+                        $DateUpdated = $null
+                    }
                     [PSCustomObject] @{
                         Name       = $Product.title
                         Available  = $Variant.available
@@ -84,12 +98,11 @@
                         Price      = $Variant.price
                         SKU        = $Variant.sku
                         SKUName    = $Variant.title
-                        #Inventory = $Variant.inventory_quantity
-                        Created    = [DateTime]::ParseExact($Variant.created_at, 'yyyy-MM-ddTHH:mm:sszzz', $null)
-                        Updated    = [DateTime]::ParseExact($Variant.updated_at, 'yyyy-MM-ddTHH:mm:sszzz', $null)
+                        #Inventory  = $Variant.inventory_quantity
+                        Created    = $DateCreated
+                        Updated    = $DateUpdated
                         ProductUrl = "$Url/products/$($Product.handle)"
                         Tags       = $Product.tags
-                        #Variants  = $Product.variants
                     }
                 }
             }
