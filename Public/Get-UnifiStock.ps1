@@ -29,7 +29,32 @@
         [ValidateSet('Europe', 'USA', 'Brazil', 'India', 'Japan', 'Taiwan', 'Signapore', 'Mexico', 'China')]
         [Parameter(Mandatory)]
         [string] $Store,
-        [ValidateSet('Protect', 'ProtectNVR', 'ProtectAccessories', 'NetworkOS', 'NetworkSwitching', 'NetworkSmartPower', 'NetworkRoutingOffload', 'NetworkWifi')]
+        [ValidateSet(
+            'EarlyAccess',
+            'EarlyAccessConnect',
+            'EarlyAccessDoorAccess',
+            'EarlyAccessSmartpower',
+            'EarlyAccessUispFiber',
+            'EarlyAccessUispWired',
+            'EarlyAccessUispWireless',
+            'EarlyAccessUnifiNetworkHost',
+            'NetworkHost',
+            'NetworkOS',
+            'NetworkRoutingOffload',
+            'NetworkRoutingSwitching',
+            'NetworkSmartPower',
+            'NetworkSwitching',
+            'NetworkWifi',
+            'OperatorAirmaxAndLtu',
+            'OperatorIspInfrastructure',
+            'Protect',
+            'ProtectAccessories',
+            'ProtectNVR',
+            'UnifiAccessories',
+            'UnifiConnect',
+            'UnifiDoorAccess',
+            'UnifiPhoneSystem'
+        )]
         [string[]] $Collection
     )
 
@@ -46,14 +71,30 @@
     }
 
     $Collections = @{
-        Protect               = 'unifi-protect'
-        ProtectNVR            = 'unifi-protect-nvr'
-        ProtectAccessories    = 'unifi-protect-accessories'
-        NetworkOS             = 'unifi-network-unifi-os-consoles'
-        NetworkSwitching      = 'unifi-network-routing-switching'
-        NetworkSmartPower     = 'unifi-network-smartpower'
-        NetworkRoutingOffload = 'unifi-network-routing-offload'
-        NetworkWifi           = 'unifi-network-wireless'
+        Protect                     = 'unifi-protect'
+        ProtectNVR                  = 'unifi-protect-nvr'
+        ProtectAccessories          = 'unifi-protect-accessories'
+        NetworkOS                   = 'unifi-network-unifi-os-consoles'
+        NetworkRoutingSwitching     = 'unifi-network-routing-switching'
+        NetworkSmartPower           = 'unifi-network-smartpower'
+        NetworkRoutingOffload       = 'unifi-network-routing-offload'
+        NetworkHost                 = 'unifi-network-host'
+        NetworkSwitching            = 'unifi-network-switching'
+        NetworkWifi                 = 'unifi-network-wireless'
+        UnifiAccessories            = 'unifi-accessories'
+        EarlyAccess                 = 'early-access'
+        EarlyAccessDoorAccess       = 'early-access-door-access'
+        EarlyAccessConnect          = 'early-access-connect'
+        EarlyAccessSmartpower       = 'early-access-smartpower'
+        EarlyAccessUispFiber        = 'early-access-uisp-fiber'
+        EarlyAccessUispWired        = 'early-access-uisp-wired'
+        EarlyAccessUispWireless     = 'early-access-uisp-wireless'
+        EarlyAccessUnifiNetworkHost = 'early-access-unifi-network-host'
+        UnifiConnect                = 'unifi-connect'
+        UnifiDoorAccess             = 'unifi-door-access'
+        OperatorAirmaxAndLtu        = 'operator-airmax -and -ltu'
+        OperatorIspInfrastructure   = 'operator-isp-infrastructure'
+        UnifiPhoneSystem            = 'unifi-phone-system'
     }
 
     $UrlStore = $Stores[$Store]
@@ -68,6 +109,7 @@
         $UrlProducts = "$Url/products.json"
         $ProgressPreference = 'SilentlyContinue'
         try {
+            Write-Verbose -Message "Get-UnifiStock - Getting $UrlProducts"
             $Output = Invoke-WebRequest -Uri $UrlProducts -ErrorAction Stop -Verbose:$false
         } catch {
             Write-Color -Text "Unable to get $UrlProducts. Error: $($_.Exception.Message)" -Color Red
