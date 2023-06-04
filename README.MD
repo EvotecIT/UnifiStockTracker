@@ -28,7 +28,7 @@ I know there are places doing the same thing such as:
 
 But there is one problem - they monitor for every single product so you get a lot of spam. I wanted to monitor only for specific products, in my own time. So I created this module.
 
-You can find more about this module on my blog:
+You can find more about this module on my blog (this blog is outdated due to redesign of Ubiquiti store for US/EU, but still valid for all other shops), but provides some background information:
 - [Track Ubiquiti Unifi Stock, and get notified of changes](https://evotec.xyz/simplify-notifications-about-ubiquiti-unifi-stock/)
 
 ## Installation
@@ -41,36 +41,64 @@ Install-Module -Name UnifiStockTracker -Scope CurrentUser -Verbose
 
 ## Usage
 
-### Getting a list of products
+Due to Unifi store changes this module now contains 4 commands:
 
-Get all products from 3 categories in USA store, sort them by name and display
+- `Get-UnifiStock` - supporting only US/EU stores
+- `Get-UnifiStockLegacy` - supporting all other stores
+- `Wait-UnifiStock` - supporting only US/EU stores
+- `Wait-UnifiStockLegacy` - supporting all other stores
 
-```powershell
-Get-UnifiStock -Store USA -Collection Protect, ProtectAccessories, ProtectNVR | Sort-Object -Property Name | Format-Table
-```
+Once redesign for all stores will be done I'll try to fix other stores and remove compatibility with old ones.
 
-Get all products from 2 categories in Europe store, sort them by name and display
+### Getting a list of products (non-EU, non-USA) stores
 
-```powershell
-Get-UnifiStock -Store Europe -Collection Protect, NetworkWifi | Sort-Object -Property Name | Format-Table
-```
-
-Get all products from Europe store, sort them by name and display
+Get all products from 3 categories in Brazil store, sort them by name and display
 
 ```powershell
-Get-UnifiStock -Store Europe | Sort-Object -Property Name | Format-Table
+Get-UnifiStockLegacy -Store Brazil -Collection Protect, ProtectAccessories, ProtectNVR | Sort-Object -Property Name | Format-Table
 ```
 
-### Waiting for specific products
+Get all products from 2 categories in Brazil store, sort them by name and display
+
+```powershell
+Get-UnifiStockLegacy -Store Brazil -Collection Protect, NetworkWifi | Sort-Object -Property Name | Format-Table
+```
+
+Get all products from India store, sort them by name and display
+
+```powershell
+Get-UnifiStockLegacy -Store India | Sort-Object -Property Name | Format-Table
+```
+
+### Waiting for specific products (non-EU, non-USA)
 
 Wait for 4 products of which one will be ignored because it doesn't exists and recheck store every 60 seconds (Europe store is default)
 
 ```powershell
-Wait-UnifiStock -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60
+Wait-UnifiStockLegacy -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60
 ```
 
 Wait for 1 product via specific SKU and recheck store every 60 seconds (Europe store is default)
 
 ```powershell
-Wait-UnifiStock -ProductSKU 'UDR-EU' -ProductName 'Switch Flex XG' -Seconds 60
+Wait-UnifiStockLegacy -ProductSKU 'UDR-EU' -ProductName 'Switch Flex XG' -Seconds 60
+```
+
+### Getting a list of products (EU, USA) stores
+
+```powershell
+Get-UnifiStock -Store Europe | Sort-Object -Property Name | Format-Table
+Get-UnifiStock -Store USA -Verbose | Sort-Object -Property Name | Format-Table
+
+Get-UnifiStock -Store USA -Collection AccessoriesCabling, CableBox | Sort-Object -Property Name | Format-Table
+Get-UnifiStock -Store Europe -Collection CameraSecurityDome360, CameraSecurityCompactPoEWired | Sort-Object -Property Name | Format-Table
+Get-UnifiStock -Store USA -Collection HostingAndGatewaysCloud,DreamMachine, DreamRouter | Sort-Object -Property Name | Format-Table
+```
+
+### Waiting for specific products (EU, USA)
+
+```powershell
+Wait-UnifiStock -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60 -Store USA
+Wait-UnifiStock -ProductSKU 'UDR-EU' -ProductName 'Switch Flex XG' -Seconds 60 -Store Europe
+Wait-UnifiStock -ProductName 'Access Point AC Lite' -Seconds 60 -Store Europe
 ```
