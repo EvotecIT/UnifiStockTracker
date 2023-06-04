@@ -1,4 +1,12 @@
-﻿### 1.0.3 - 2023.04.17
+﻿### 2.0.0 - 2023.06.04
+This Release resolves:
+- https://github.com/EvotecIT/UnifiStockTracker/issues/2
+
+It has breaking changes:
+- New function `Get-UnifiStockLegacy/Wait-UnifiStockLegacy` work with non EU/US stores to provide backwards compatibility
+- `Get-UnifiStock/WaitUnifiStock` now support only EU/US stores until legacy stores will also be migrated (if it ever happens)
+
+### 1.0.3 - 2023.04.17
 - Add multiple new collections. Currently supported collections are:
     - EarlyAccess
     - EarlyAccessConnect
