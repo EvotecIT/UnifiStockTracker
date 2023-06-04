@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Wait-UnifiStock
+# Wait-UnifiStockLegacy
 
 ## SYNOPSIS
 When run waits for the specified SKU or Product to be in stock in Ubiquiti's online store.
@@ -13,8 +13,8 @@ When run waits for the specified SKU or Product to be in stock in Ubiquiti's onl
 ## SYNTAX
 
 ```
-Wait-UnifiStock [[-ProductName] <String[]>] [[-ProductSKU] <String[]>] [-Store] <String> [[-Seconds] <Int32>]
- [-DoNotOpenWebsite] [-DoNotPlaySound] [-DoNotUseBeep] [<CommonParameters>]
+Wait-UnifiStockLegacy [[-ProductName] <String[]>] [[-ProductSKU] <String[]>] [-Store] <String>
+ [[-Seconds] <Int32>] [-DoNotOpenWebsite] [-DoNotPlaySound] [-DoNotUseBeep] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -25,17 +25,17 @@ Once the product is in stock the function will play a beep, read which product i
 
 ### EXAMPLE 1
 ```
-Wait-UnifiStock -ProductSKU 'UDR-EU' -ProductName 'Switch Flex XG' -Seconds 60 -Store Europe
+Wait-UnifiStockLegacy -ProductSKU 'UDR-EU' -ProductName 'Switch Flex XG' -Seconds 60 -Store Brazil
 ```
 
 ### EXAMPLE 2
 ```
-Wait-UnifiStock -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60 -Store Europe
+Wait-UnifiStockLegacy -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60 -Store Brazil
 ```
 
 ### EXAMPLE 3
 ```
-Wait-UnifiStock -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60 -DoNotUseBeep -Store Europe
+Wait-UnifiStockLegacy -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60 -DoNotUseBeep -Store Brazil
 ```
 
 ## PARAMETERS
@@ -72,9 +72,8 @@ Accept wildcard characters: False
 
 ### -Store
 The store to check for stock.
-Valid values are Europe, USA.
-If you want to use a different store you can use Wait-UnifiStockLegacy for other countries.
-This is because the legacy store has a different format for the JSON data, and are not yet migrated to new "look"
+Valid values are Brazil, India, Japan, Taiwan, Signapore, Mexico, China
+If you want EU/USA store you can use Wait-UnifiStock for those.
 
 ```yaml
 Type: String
