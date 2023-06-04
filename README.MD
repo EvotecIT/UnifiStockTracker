@@ -52,8 +52,6 @@ Once redesign for all stores will be done I'll try to fix other stores and remov
 
 ### Getting a list of products (non-EU, non-USA) stores
 
-```powershell
-
 Get all products from 3 categories in Brazil store, sort them by name and display
 
 ```powershell
