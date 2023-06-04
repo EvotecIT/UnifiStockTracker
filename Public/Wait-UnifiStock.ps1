@@ -14,7 +14,9 @@
     One or more products to wait for to be in stock with search by it's SKU
 
     .PARAMETER Store
-    The store to check for stock. Valid values are Europe, USA, Brazil, India, Japan, Taiwan, Signapore, Mexico, China
+    The store to check for stock. Valid values are Europe, USA.
+    If you want to use a different store you can use Wait-UnifiStockLegacy for other countries.
+    This is because the legacy store has a different format for the JSON data, and are not yet migrated to new "look"
 
     .PARAMETER Seconds
     The number of seconds to wait between checks. Default is 60 seconds.
@@ -29,13 +31,13 @@
     If specified the beep will not be played when the product is in stock.
 
     .EXAMPLE
-    Wait-UnifiStock -ProductSKU 'UDR-EU' -ProductName 'Switch Flex XG' -Seconds 60
+    Wait-UnifiStock -ProductSKU 'UDR-EU' -ProductName 'Switch Flex XG' -Seconds 60 -Store Europe
 
     .EXAMPLE
-    Wait-UnifiStock -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60
+    Wait-UnifiStock -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60 -Store Europe
 
     .EXAMPLE
-    Wait-UnifiStock -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60 -DoNotUseBeep
+    Wait-UnifiStock -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60 -DoNotUseBeep -Store Europe
 
     .NOTES
     General notes
@@ -44,7 +46,7 @@
     param(
         [string[]] $ProductName,
         [string[]] $ProductSKU,
-        [ValidateSet('Europe', 'USA', 'Brazil', 'India', 'Japan', 'Taiwan', 'Signapore', 'Mexico', 'China')][string] $Store = 'Europe',
+        [parameter(Mandatory)][ValidateSet('Europe', 'USA')][string] $Store,
         [int] $Seconds = 60,
         [switch] $DoNotOpenWebsite,
         [switch] $DoNotPlaySound,
@@ -78,16 +80,17 @@
             }
         }
     )
+    $ApplicableProducts = $ApplicableProducts | Sort-Object -Unique
     if ($ApplicableProducts.Count -eq 0) {
         Write-Color -Text "No products requested by user not found on list of available products. Exiting" -Color Red
         return
     }
 
-    $Collections = @(
-        foreach ($Product in $ApplicableProducts) {
-            $Cache[$Product].Category
-        }
-    ) | Select-Object -Unique
+    # $Collections = @(
+    #     foreach ($Product in $ApplicableProducts) {
+    #         $Cache[$Product].Category
+    #     }
+    # ) | Select-Object -Unique
 
     Write-Color -Text "Setting up monitoring for ", ($ApplicableProducts -join ", ") -Color Yellow, Green
     $Count = 0
@@ -96,7 +99,7 @@
             Start-Sleep -Seconds $Seconds
         }
         Write-Color -Text "Checking stock..." -Color Yellow
-        $CurrentResults = Get-UnifiStock -Store $Store -Collection $Collections | Where-Object {
+        $CurrentResults = Get-UnifiStock -Store $Store | Where-Object {
             $_.Name -in $ApplicableProducts -or $_.SKU -in $ApplicableProducts
         } | Sort-Object -Property Name
         Write-Color -Text "Checking stock... Done, sleeping for $Seconds seconds" -Color Green
