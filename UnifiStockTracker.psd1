@@ -8,7 +8,7 @@
     Description          = 'PowerShell module to get current stock in Ubiquiti Unifi store'
     FunctionsToExport    = @('Get-UnifiStock', 'Get-UnifiStockLegacy', 'Wait-UnifiStock', 'Wait-UnifiStockLegacy')
     GUID                 = 'e3d09753-16be-4535-b74f-d9a4c6927a54'
-    ModuleVersion        = '2.0.4'
+    ModuleVersion        = '2.0.0'
     PowerShellVersion    = '5.1'
     PrivateData          = @{
         PSData = @{
