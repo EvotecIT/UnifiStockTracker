@@ -1,6 +1,6 @@
 ﻿Import-Module .\UnifiStockTracker.psd1 -Force
 
-Get-UnifiStock -Store Europe | Sort-Object -Property Name | Format-Table
+Get-UnifiStock -Store UK | Sort-Object -Property Name | Format-Table
 Get-UnifiStock -Store USA -Verbose | Sort-Object -Property Name | Format-Table
 
 Get-UnifiStock -Store USA -Collection AccessoriesCabling, CableBox | Sort-Object -Property Name | Format-Table
