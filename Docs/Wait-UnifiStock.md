@@ -72,7 +72,7 @@ Accept wildcard characters: False
 
 ### -Store
 The store to check for stock.
-Valid values are Europe, USA.
+Valid values are Europe, USA and UK.
 If you want to use a different store you can use Wait-UnifiStockLegacy for other countries.
 This is because the legacy store has a different format for the JSON data, and are not yet migrated to new "look"
 
