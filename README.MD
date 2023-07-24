@@ -43,9 +43,9 @@ Install-Module -Name UnifiStockTracker -Scope CurrentUser -Verbose
 
 Due to Unifi store changes this module now contains 4 commands:
 
-- `Get-UnifiStock` - supporting only US/EU stores
+- `Get-UnifiStock` - supporting only US/EU/ stores
 - `Get-UnifiStockLegacy` - supporting all other stores
-- `Wait-UnifiStock` - supporting only US/EU stores
+- `Wait-UnifiStock` - supporting only US/EU/UK stores
 - `Wait-UnifiStockLegacy` - supporting all other stores
 
 Once redesign for all stores will be done I'll try to fix other stores and remove compatibility with old ones.
