@@ -70,7 +70,7 @@ Get all products from India store, sort them by name and display
 Get-UnifiStockLegacy -Store India | Sort-Object -Property Name | Format-Table
 ```
 
-### Waiting for specific products (non-EU, non-USA)
+### Waiting for specific products (non-EU, non-USA, non-UK)
 
 Wait for 4 products of which one will be ignored because it doesn't exists and recheck store every 60 seconds (Europe store is default)
 
@@ -84,7 +84,7 @@ Wait for 1 product via specific SKU and recheck store every 60 seconds (Europe s
 Wait-UnifiStockLegacy -ProductSKU 'UDR-EU' -ProductName 'Switch Flex XG' -Seconds 60
 ```
 
-### Getting a list of products (EU, USA) stores
+### Getting a list of products (EU, USA, UK) stores
 
 ```powershell
 Get-UnifiStock -Store Europe | Sort-Object -Property Name | Format-Table
@@ -95,7 +95,7 @@ Get-UnifiStock -Store Europe -Collection CameraSecurityDome360, CameraSecurityCo
 Get-UnifiStock -Store USA -Collection HostingAndGatewaysCloud,DreamMachine, DreamRouter | Sort-Object -Property Name | Format-Table
 ```
 
-### Waiting for specific products (EU, USA)
+### Waiting for specific products (EU, USA, UK)
 
 ```powershell
 Wait-UnifiStock -ProductName 'UniFi6 Mesh', 'G4 Doorbell Pro', 'Camera G4 Pro', 'Test' -Seconds 60 -Store USA
