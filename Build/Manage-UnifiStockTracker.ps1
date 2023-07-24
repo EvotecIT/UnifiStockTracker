@@ -7,7 +7,7 @@ $Configuration = @{
 
         Manifest          = @{
             # Version number of this module.
-            ModuleVersion              = '2.0.0'
+            ModuleVersion              = '2.X.0'
             # Supported PSEditions
             CompatiblePSEditions       = @('Desktop', 'Core')
             # ID used to uniquely identify this module
@@ -133,7 +133,7 @@ $Configuration = @{
             PSD1 = 'Minimal' # Native
         }
         Signing           = @{
-            CertificateThumbprint = '36A8A2D0E227D81A2D3B60DCE0CFCF23BEFC343B'
+            CertificateThumbprint = '483292C9E317AA13B07BB7A96AE9D1A5ED9E7703'
         }
     }
     Steps       = @{
