@@ -7,7 +7,7 @@
     Get the stock status of Ubiquiti products from their online store.
 
     .PARAMETER Store
-    The store to check for stock. Valid values are: Europe, USA
+    The store to check for stock. Valid values are: Europe, USA, UK
     If you want to use a different store you can use Get-UnifiStockLegacy for other countries.
     This is because the legacy store has a different format for the JSON data, and are not yet migrated to new "look"
 
@@ -28,7 +28,7 @@
     #>
     [cmdletbinding()]
     param(
-        [ValidateSet('Europe', 'USA')]
+        [ValidateSet('Europe', 'USA', 'UK')]
         [Parameter(Mandatory)][string] $Store,
         [ValidateSet(
             'AccessoriesCabling',
@@ -128,11 +128,13 @@
     $Stores = @{
         Europe = 'eu'
         USA    = 'us'
+        UK     = 'uk'
     }
 
     $StoreLinks = @{
         Europe = 'https://eu.store.ui.com/eu/en'
         USA    = 'https://store.ui.com/us/en'
+        UK     = 'https://uk.store.ui.com/uk/en'
     }
 
     $Accessories = @{
