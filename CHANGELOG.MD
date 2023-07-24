@@ -1,4 +1,7 @@
-﻿### 2.0.0 - 2023.06.04
+﻿### 2.1.0 - 2023.07.24
+- Added UK store
+
+### 2.0.0 - 2023.06.04
 This Release resolves:
 - https://github.com/EvotecIT/UnifiStockTracker/issues/2
 
