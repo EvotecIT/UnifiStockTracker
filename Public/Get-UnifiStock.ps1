@@ -260,8 +260,131 @@
     $ProgressPreference = 'SilentlyContinue'
     try {
         Write-Verbose -Message "Get-UnifiStock - Getting Unifi products"
-        $Output = Invoke-RestMethod -UseBasicParsing -Uri "https://ecomm.svc.ui.com/graphql" -Method Post -ContentType "application/json" -Body "{`"operationName`":`"GetProductsForLandingPagePro`",`"variables`":{`"input`":{`"limit`":250,`"offset`":0,`"filter`":{`"storeId`":`"$UrlStore`",`"language`":`"en`",`"line`":`"Unifi`"}}},`"query`":`"query GetProductsForLandingPagePro(`$input: StorefrontProductListInput!) {\n  storefrontProducts(input: `$input) {\n    pagination {\n      limit\n      offset\n      total\n      __typename\n    }\n    items {\n      ...LandingProProductFragment\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment LandingProProductFragment on StorefrontProduct {\n  id\n  title\n  shortTitle\n  name\n  slug\n  collectionSlug\n  organizationalCollectionSlug\n  shortDescription\n  tags {\n    name\n    __typename\n  }\n  gallery {\n    ...ImageOnlyGalleryFragment\n    __typename\n  }\n  options {\n    id\n    title\n    values {\n      id\n      title\n      __typename\n    }\n    __typename\n  }\n  variants {\n    id\n    sku\n    status\n    title\n    galleryItemIds\n    isEarlyAccess\n    optionValueIds\n    displayPrice {\n      ...MoneyFragment\n      __typename\n    }\n    hasPurchaseHistory\n    __typename\n  }\n  __typename\n}\n\nfragment ImageOnlyGalleryFragment on Gallery {\n  id\n  items {\n    id\n    data {\n      __typename\n      ... on Asset {\n        id\n        mimeType\n        url\n        height\n        width\n        __typename\n      }\n    }\n    __typename\n  }\n  type\n  __typename\n}\n\nfragment MoneyFragment on Money {\n  amount\n  currency\n  __typename\n}`"}"
-        $Products = $Output.data.storefrontProducts.items
+
+        $invokeRestMethodSplat = @{
+            UseBasicParsing = $true
+            Uri             = "https://ecomm.svc.ui.com/graphql"
+            Method          = 'Post'
+            ContentType     = "application/json"
+        }
+
+        $Limit = 250
+        $Offset = 0
+        $Total = 1
+
+        $Products = while ($offset -lt $total) {
+
+            $Body = [ordered] @{
+                operationName = "GetProductsForLandingPagePro"
+                variables     = @{
+                    input = @{
+                        limit  = $Limit
+                        offset = $Offset
+                        filter = @{
+                            storeId  = "$UrlStore"
+                            language = "en"
+                            line     = "Unifi"
+                        }
+                    }
+                }
+                query         = @"
+query GetProductsForLandingPagePro(`$input: StorefrontProductListInput!) {
+  storefrontProducts(input: `$input) {
+    pagination {
+      limit
+      offset
+      total
+      __typename
+    }
+    items {
+      ...LandingProProductFragment
+      __typename
+    }
+    __typename
+  }
+}
+
+fragment LandingProProductFragment on StorefrontProduct {
+  id
+  title
+  shortTitle
+  name
+  slug
+  collectionSlug
+  organizationalCollectionSlug
+  shortDescription
+  tags {
+    name
+    __typename
+  }
+  gallery {
+    ...ImageOnlyGalleryFragment
+    __typename
+  }
+  options {
+    id
+    title
+    values {
+      id
+      title
+      __typename
+    }
+    __typename
+  }
+  variants {
+    id
+    sku
+    status
+    title
+    galleryItemIds
+    isEarlyAccess
+    optionValueIds
+    displayPrice {
+      ...MoneyFragment
+      __typename
+    }
+    hasPurchaseHistory
+    __typename
+  }
+  __typename
+}
+
+fragment ImageOnlyGalleryFragment on Gallery {
+  id
+  items {
+    id
+    data {
+      __typename
+      ... on Asset {
+        id
+        mimeType
+        url
+        height
+        width
+        __typename
+      }
+    }
+    __typename
+  }
+  type
+  __typename
+}
+
+fragment MoneyFragment on Money {
+  amount
+  currency
+  __typename
+}
+"@
+            }
+            $invokeRestMethodSplat.Body = $Body | ConvertTo-Json -Depth 10
+            $Output = Invoke-RestMethod @invokeRestMethodSplat
+            $CurrentProducts = $Output.data.storefrontProducts.items
+            $CurrentProducts
+            $Pagination = $Output.data.storefrontProducts.pagination
+            $total = $pagination.total
+            $offset += $limit
+        }
     } catch {
         Write-Color -Text "Unable to get Unifi products. Error: $($_.Exception.Message)" -Color Red
         return
