@@ -1,4 +1,7 @@
-﻿### 2.1.0 - 2023.07.24
+﻿### 2.2.0 - 2024.08.11
+- Fixes paging that was missing few items from the store
+
+### 2.1.0 - 2023.07.24
 - Added UK store
 
 ### 2.0.0 - 2023.06.04
